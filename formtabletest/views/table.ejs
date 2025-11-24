@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submissions</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h2>Submitted Entries</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Message</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (submissions.length === 0) { %>
+        <tr><td colspan="5" style="text-align:center;">No submissions yet.</td></tr>
+      <% } %>
+
+      <% submissions.forEach((item, index) => { %>
+        <tr>
+          <form action="/edit/<%= index %>" method="POST">
+            <td><input type="text" name="name" value="<%= item.name %>"></td>
+            <td><input type="email" name="email" value="<%= item.email %>"></td>
+            <td><input type="text" name="mobile" value="<%= item.mobile %>"></td>
+            <td><input type="text" name="message" value="<%= item.message %>"></td>
+            <td>
+              <button type="submit">Save</button>
+          </form>
+          <form action="/delete/<%= index %>" method="POST" style="display:inline;">
+              <button type="submit" class="delete">Delete</button>
+          </form>
+            </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <a href="/form">Go Back</a>
+</body>
+</html>
